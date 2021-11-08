@@ -4,9 +4,13 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
+@Table(name = "user")
 @SequenceGenerator(name = UserBE.SEQ_NAME, sequenceName = UserBE.SEQ_NAME, allocationSize = 1)
 public class UserBE {
     private static final long serialVersionUID = 1;
@@ -30,6 +34,9 @@ public class UserBE {
     @NotBlank
     @Size(max = 120)
     private String password;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<RoleBE> roles;
 
     public UserBE() {
     }
@@ -72,6 +79,14 @@ public class UserBE {
         this.password = password;
     }
 
+    public Set<RoleBE> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<RoleBE> roles) {
+        this.roles = roles;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -90,6 +105,7 @@ public class UserBE {
         private String username;
         private String email;
         private String password;
+        private Set<Role> roles = new HashSet<>();
 
         private Builder() {
 
@@ -114,12 +130,26 @@ public class UserBE {
             return this;
         }
 
+        public Builder withEmail(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder withRoles(Set<Role> roles) {
+            if (roles != null) {
+                this.roles.addAll(roles);
+
+            }
+            return this;
+        }
+
         public UserBE build() {
             UserBE userBE = new UserBE();
             userBE.setId(this.id);
             userBE.setUsername(this.username);
             userBE.setEmail(this.email);
             userBE.setPassword(this.password);
+            userBE.setRoles(roles.stream().map(roleName -> new RoleBE(userBE, roleName)).collect(Collectors.toSet()));
             return userBE;
         }
     }
