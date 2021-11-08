@@ -10,7 +10,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user", schema = "taskmanager")
 @SequenceGenerator(name = UserBE.SEQ_NAME, sequenceName = UserBE.SEQ_NAME, allocationSize = 1)
 public class UserBE {
     private static final long serialVersionUID = 1;

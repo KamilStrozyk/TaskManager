@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -58,7 +59,7 @@ public class AuthController {
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
+                .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(new JwtResponse(jwt,
@@ -85,9 +86,7 @@ public class AuthController {
                 passwordEncoder.encode(signupRequest.getPassword()));
 
         Set<RoleBE> roles = new HashSet<>();
-        RoleBE userRole = roleRepository.findByRole(Role.ROLE_USER)
-                .orElseThrow(() -> new RuntimeException("Error ROLE_USER was not found and therefore not assigned"));
-        roles.add(userRole);
+        roles.add(new RoleBE(user, Role.ROLE_USER));
 
         user.setRoles(roles);
         userRepository.save(user);

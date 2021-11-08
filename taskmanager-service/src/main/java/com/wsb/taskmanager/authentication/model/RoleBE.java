@@ -5,7 +5,7 @@ import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 @Entity
-@Table(name = "role")
+@Table(name = "role", schema = "taskmanager")
 @SequenceGenerator(name = RoleBE.SEQ_NAME, sequenceName = RoleBE.SEQ_NAME, allocationSize = 1)
 public class RoleBE {
     private static final long serialVersionUID = 1;
