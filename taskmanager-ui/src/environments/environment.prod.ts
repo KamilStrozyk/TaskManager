@@ -1,3 +1,6 @@
 export const environment = {
-  production: true
+  production: true,
+  odata: {
+    apiUrl:'https://localhost:8080/api'
+  }
 };

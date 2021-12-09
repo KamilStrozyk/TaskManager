@@ -1,0 +1,10 @@
+    <mat-grid-list cols="1" rowHeight="100px" gutterSize="5px" >
+        <mat-card-title>{{translations[chosenTranslation].welcome_to_task_manager}} </mat-card-title>
+    </mat-grid-list>
+    <mat-grid-list cols="1" rowHeight="50px" gutterSize="5px" >
+       {{translations[chosenTranslation].welcome_to_task_manager_description}} 
+    </mat-grid-list>
+    <mat-grid-list cols="3" rowHeight="100px" gutterSize="5px" >
+    <button  routerLink='/register'  mat-raised-button color="primary"> {{translations[chosenTranslation].sign_in}} </button>
+    <button mat-raised-button color="primary"> {{translations[chosenTranslation].sign_up}} </button>
+    </mat-grid-list>

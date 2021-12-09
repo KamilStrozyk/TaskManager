@@ -5,6 +5,12 @@ import { SidenavComponent } from "./layout/sidenav.component";
 import {MatSidenavModule} from '@angular/material/sidenav'; 
 import {MatIconModule} from '@angular/material/icon'; 
 import {MatButtonModule} from '@angular/material/button'; 
+import { BrowserModule } from '@angular/platform-browser';
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from '@angular/material/input';
+import {MatCardModule} from '@angular/material/card';
+import {MatGridListModule} from '@angular/material/grid-list'; 
+
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -15,13 +21,28 @@ import {MatButtonModule} from '@angular/material/button';
     SidenavComponent,
     MatSidenavModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    BrowserModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    BrowserModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+    MatGridListModule,
+    
   ],
   imports: [
     MatToolbarModule,
     MatSidenavModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    BrowserModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+    MatGridListModule,
   ],
   providers: [],
   bootstrap: [HeaderComponent,SidenavComponent]

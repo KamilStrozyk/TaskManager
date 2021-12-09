@@ -1,0 +1,15 @@
+<mat-card-title>{{translations[chosenTranslation].sign_in}} </mat-card-title>
+<mat-form-field appearance="fill">
+  <mat-label>{{translations[chosenTranslation].username}}</mat-label>
+  <input matInput>
+</mat-form-field>
+<mat-form-field appearance="fill">
+  <mat-label>{{translations[chosenTranslation].email}}</mat-label>
+  <input matInput>
+</mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>{{translations[chosenTranslation].password}}</mat-label>
+    <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required><mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+  </mat-form-field>
+  <button mat-raised-button color="primary"> {{translations[chosenTranslation].sign_in}} </button>
+

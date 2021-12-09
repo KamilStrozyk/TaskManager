@@ -1,12 +1,13 @@
+<div *ngIf="isDarken" class="background"></div>
   <mat-drawer #drawer class="example-sidenav" mode="side">
     
-    <button  (click)="drawer.toggle()"mat-flat-button >
+    <button  (click)="drawer.toggle(); isDarken = !isDarken"mat-flat-button >
       <mat-icon>arrow_left</mat-icon>
     </button>
     <p>Auto-resizing sidenav</p>
   
 </mat-drawer>
 
-  <button  (click)="drawer.toggle()"mat-flat-button >
+  <button  (click)="drawer.toggle(); isDarken = !isDarken"mat-flat-button >
     <mat-icon>more_vert</mat-icon>
   </button>
