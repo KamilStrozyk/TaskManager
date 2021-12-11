@@ -5,8 +5,8 @@ public enum Role {
     ROLE_ADMIN;
 
     public static final class Name {
-        public static final String ROLE_USER = "USER";
-        public static final String ROLE_ADMIN = "ADMIN";
+        public static final String ROLE_USER = "ROLE_USER";
+        public static final String ROLE_ADMIN = "ROLE_ADMIN";
 
         private Name() {
         }
