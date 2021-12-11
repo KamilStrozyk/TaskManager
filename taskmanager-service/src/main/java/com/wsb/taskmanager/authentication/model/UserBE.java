@@ -1,5 +1,7 @@
 package com.wsb.taskmanager.authentication.model;
 
+import com.wsb.taskmanager.businesslogic.model.TaskSpaceBE;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -37,6 +39,9 @@ public class UserBE {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<RoleBE> roles;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<TaskSpaceBE> taskSpaces;
 
     public UserBE() {
     }
@@ -85,6 +90,17 @@ public class UserBE {
 
     public void setRoles(Set<RoleBE> roles) {
         this.roles = roles;
+    }
+
+    public Set<TaskSpaceBE> getTaskSpaces() {
+        if (taskSpaces == null) {
+            taskSpaces = new HashSet<>();
+        }
+        return taskSpaces;
+    }
+
+    public void setTaskSpaces(Set<TaskSpaceBE> taskSpaces) {
+        this.taskSpaces = taskSpaces;
     }
 
     @Override
@@ -138,8 +154,8 @@ public class UserBE {
         public Builder withRoles(Set<Role> roles) {
             if (roles != null) {
                 this.roles.addAll(roles);
-
             }
+
             return this;
         }
 
