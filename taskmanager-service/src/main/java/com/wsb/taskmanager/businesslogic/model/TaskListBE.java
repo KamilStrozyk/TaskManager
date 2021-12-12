@@ -31,7 +31,7 @@ public class TaskListBE {
     @Column(name = "created_at")
     private Date createdAt;
 
-    @OneToMany(mappedBy = "taskList")
+    @OneToMany(mappedBy = "taskList", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<TaskBE> tasks;
 
     public long getId() {

@@ -32,7 +32,7 @@ public class TaskSpaceBE {
     @Column(name = "created_at")
     private Date createdAt;
 
-    @OneToMany(mappedBy = "taskSpace")
+    @OneToMany(mappedBy = "taskSpace", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<TaskListBE> taskList;
 
     public long getId() {
