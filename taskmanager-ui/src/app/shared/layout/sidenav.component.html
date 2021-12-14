@@ -4,7 +4,16 @@
     <button  (click)="drawer.toggle(); isDarken = !isDarken"mat-flat-button >
       <mat-icon>arrow_left</mat-icon>
     </button>
-    <p>Auto-resizing sidenav</p>
+    
+    <button  *ngIf="(currentUser | async)" class="menuButton" (click)="logout()"mat-flat-button >
+      <mat-icon>logout</mat-icon>  {{translations[chosenTranslation].logout}}
+    </button>
+    
+    <button  class="menuButton" (click)="changeLanguage()"mat-flat-button >
+      <mat-icon><span class="material-icons">
+        g_translate
+        </span></mat-icon>  {{translations[chosenTranslation].change_language}}
+    </button>
   
 </mat-drawer>
 

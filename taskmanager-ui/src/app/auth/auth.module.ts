@@ -1,11 +1,14 @@
 import { NgModule } from "@angular/core";
 import { SharedModule } from "../shared/shared.module";
 import { RegisterComponent } from "./register/register.component";
-import {MatFormFieldModule} from '@angular/material/form-field'; 
-import {MatDividerModule} from '@angular/material/divider'; 
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDividerModule } from '@angular/material/divider';
+import { FormsModule } from "@angular/forms";
+import { LoginComponent } from "./login/login.component";
 @NgModule({
     declarations: [
-        RegisterComponent
+        RegisterComponent,
+        LoginComponent
     ],
     exports: [
         MatFormFieldModule
@@ -13,9 +16,10 @@ import {MatDividerModule} from '@angular/material/divider';
     imports: [
         SharedModule,
         MatFormFieldModule,
-        MatDividerModule
+        MatDividerModule,
+        FormsModule
     ],
     providers: [],
-    bootstrap: [RegisterComponent]
+    bootstrap: [RegisterComponent, LoginComponent]
 })
 export class AuthModule { }

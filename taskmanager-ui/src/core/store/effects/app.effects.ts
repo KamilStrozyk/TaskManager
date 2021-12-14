@@ -1,41 +1,62 @@
 
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, Effect, ofType } from '@ngrx/effects';
-import { AppActionTypes, LoginUserSuccess } from '../actions/app.actions';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { AppActionTypes, LoginUser, LoginUserSuccess, RegisterUser, RegisterUserSuccess } from '../actions/app.actions';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
-
-import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
+import { catchError, exhaustMap, map, switchMap } from 'rxjs/operators';
 import { EMPTY } from 'rxjs';
 import { AuthService } from 'src/core/services/auth.service';
 import { UserModel } from 'src/core/models/user';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AppEffects {
 
     loginUser$ = createEffect(() => this.actions$.pipe(
-        ofType(AppActionTypes.LoginUser),
-        mergeMap((action) => this.authService.loginUser(action.payload.credentials)
+        ofType(LoginUser),
+        exhaustMap((action) => this.authService.loginUser(action.credentials)
             .pipe(
-                map((user: UserModel) => new LoginUserSuccess({ user: user })),
+                map((user: UserModel) => {
+                    this.router.navigate(['/']);
+                    localStorage.setItem('user', JSON.stringify(user));
+                    return LoginUserSuccess({ user: user })
+                }),
                 catchError(() => EMPTY)
             ))));
 
     registerUser$ = createEffect(() => this.actions$.pipe(
-        ofType(AppActionTypes.LoginUser),
-        mergeMap((action) => this.authService.registerUser(action.payload.)
+        ofType(RegisterUser),
+        exhaustMap((action) => this.authService.registerUser(action.user)
             .pipe(
-                map((user: UserModel) => new LoginUserSuccess({ user: user })),
-                catchError(() => EMPTY)
+                map((message) => {
+                    this.router.navigate(['/login']);
+                    return RegisterUserSuccess()
+                }),
+                catchError((message) => this.handleError(message)),
             ))));
 
     logoutUser$ = createEffect(() => this.actions$.pipe(
-        ofType(AppActionTypes.LoginUser),
-        switchMap(async () => new LoginUserSuccess({ user: null })),
-        catchError(() => EMPTY)
+        ofType(AppActionTypes.LogoutUser),
+        switchMap(async () => {
+            localStorage.removeItem('user');
+            this.router.navigate(['/login']);
+            return LoginUserSuccess({ user: undefined })
+        }),
+        catchError(() => EMPTY),
     ));
+
+    handleError = (message) => {
+        this.snackbar.open(message.message, '', {
+            duration: 3000,
+            panelClass: ['mat-toolbar', 'mat-warn']
+        }); return EMPTY
+    }
 
     constructor(
         private actions$: Actions,
         private authService: AuthService,
+        private snackbar: MatSnackBar,
+        private router: Router
     ) { }
 }

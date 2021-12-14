@@ -1,15 +1,15 @@
-export interface IRegisterUser {
-    userName: string;
-    email: string;
-    password: string;
+export interface IRegisterUserModel {
+    username?: string;
+    email?: string;
+    password?: string;
 }
 
-export class RegisterUser implements IRegisterUser {
-    userName: string;
-    email: string;
-    password: string;
+export class RegisterUserModel implements IRegisterUserModel {
+    username?: string;
+    email?: string;
+    password?: string;
 
-    constructor(data?: IRegisterUser) {
+    constructor(data?: IRegisterUserModel) {
         if (data) {
             for (let property in data) {
                 if (data.hasOwnProperty(property)) {
@@ -21,13 +21,13 @@ export class RegisterUser implements IRegisterUser {
 }
 
 export interface ICredentials {
-    email: string;
-    password: string;
+    username?: string;
+    password?: string;
 }
 
 export class Credentials implements ICredentials {
-    email: string;
-    password: string;
+    username?: string;
+    password?: string;
 
     constructor(data?: ICredentials) {
         if (data) {
@@ -42,22 +42,22 @@ export class Credentials implements ICredentials {
 
 
 export interface IUserModel {
-    token: string;
-    id: number;
-    type: string;
-    username: string;
-    email: string;
-    roles: string[];
+    token?: string;
+    id?: number;
+    type?: string;
+    username?: string;
+    email?: string;
+    roles?: string[];
 }
 
 export class UserModel implements IUserModel {
-    token: string;
-    id: number;
-    type: string;
-    username: string;
-    email: string;
-    roles: string[];
 
+    token?: string;
+    id?: number;
+    type?: string;
+    username?: string;
+    email?: string;
+    roles?: string[];
     constructor(data?: IUserModel) {
         if (data) {
             for (let property in data) {

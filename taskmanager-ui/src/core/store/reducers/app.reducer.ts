@@ -1,19 +1,10 @@
-import { AppActionTypes, AppActions } from '../actions/app.actions';
-import { IAppState, initialAppState } from '../state/app.state';
+import { createReducer, on } from '@ngrx/store';
+import { LoginUserSuccess, SetLanguage } from '../actions/app.actions';
+import { initialAppState } from '../state/app.state';
 
-export function appReducer(state = initialAppState, action: AppActions): IAppState {
-  switch (action.type) {
-    case AppActionTypes.LoginUserSuccess:
-      return {
-        ...state,
-        currentUser: action.payload.user
-      };
-    case AppActionTypes.SetLanguage: 
-      return{
-        ...state,
-        language: action.payload.language
-      };
-    default:
-      return state;
-  }
-}
+export const appReducer = createReducer(
+  initialAppState,
+  on(LoginUserSuccess, (state, {user}) => ({...state, currentUser: user})),
+  on(SetLanguage, (state, {language}) => ({ ...state, language: language }))
+  
+);

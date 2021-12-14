@@ -1,22 +1,24 @@
 {
     "en": {
-        "welcome_to_task_manager": "Welcome to Task Manager!",
+        "welcome_to_task_manager": "Welcome to Task Manager",
         "welcome_to_task_manager_description": "Go to your task and manage them quickly!",
         "sign_up": "Sign Up",
         "sign_in": "Sign In",
         "logout": "Logout",
         "username": "User name",
         "password": "Password",
-        "email": "Email adress"
+        "email": "Email adress",
+        "change_language": "Change language"
     },
     "pl": {
-        "welcome_to_task_manager": "Witaj w Task Managerze!",
+        "welcome_to_task_manager": "Witaj w Task Managerze",
         "welcome_to_task_manager_description": "Możesz tutaj szybko zarządzać swoimi zadaniami",
         "sign_up": "Zarejestruj się",
         "sign_in": "Zaloguj się",
         "logout": "Wyloguj się",
         "username": "Nazwa użytkownika",
         "password": "Hasło",
-        "email": "Adres email"
+        "email": "Adres email",
+        "change_language": "Zmień język"
     }
 }
