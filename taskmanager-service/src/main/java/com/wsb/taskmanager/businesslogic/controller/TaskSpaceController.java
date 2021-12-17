@@ -43,8 +43,9 @@ public class TaskSpaceController {
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> createTaskSpace(@RequestBody TaskSpaceDTO taskSpace) {
         try {
-            return ResponseEntity.ok().body(taskSpaceService.createTaskSpace(taskSpace));
-        } catch (UserNotFoundException e) {
+            long id = taskSpaceService.createTaskSpace(taskSpace);
+            return ResponseEntity.ok().body(id);
+        } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
