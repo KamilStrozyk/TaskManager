@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Set;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -29,7 +30,7 @@ public class TaskSpaceController {
         try {
             return ResponseEntity.ok().body(taskSpaceService.getTaskSpacesOfCurrentUser());
         } catch (UserNotFoundException e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
+            return ResponseEntity.internalServerError().body(e);
         }
     }
 
@@ -41,11 +42,11 @@ public class TaskSpaceController {
 
     @PostMapping("/create")
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    public ResponseEntity<?> createTaskSpace(@RequestBody TaskSpaceDTO taskSpace) {
+    public ResponseEntity<?> createTaskSpace(@Valid @RequestBody TaskSpaceDTO taskSpace) {
         try {
             long id = taskSpaceService.createTaskSpace(taskSpace);
             return ResponseEntity.ok().body(id);
-        } catch (Exception e) {
+        } catch (UserNotFoundException e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
@@ -57,18 +58,18 @@ public class TaskSpaceController {
             taskSpaceService.removeTaskSpace(id);
             return ResponseEntity.ok().build();
         } catch (TaskSpaceNotFoundException e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
+            return ResponseEntity.internalServerError().body(e);
         }
     }
 
     @PutMapping("/update")
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    public ResponseEntity<?> updateTaskSpace(@RequestBody TaskSpaceDTO taskSpaceDTO) {
+    public ResponseEntity<?> updateTaskSpace(@Valid @RequestBody TaskSpaceDTO taskSpaceDTO) {
         try {
             taskSpaceService.updateTaskSpace(taskSpaceDTO);
             return ResponseEntity.ok().build();
         } catch (TaskSpaceNotFoundException e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
+            return ResponseEntity.internalServerError().body(e);
         }
     }
 }

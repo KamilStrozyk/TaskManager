@@ -2,12 +2,17 @@ package com.wsb.taskmanager.businesslogic.dto;
 
 import com.wsb.taskmanager.businesslogic.model.TaskSpaceBE;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Objects;
 
 public class TaskSpaceDTO {
+
     private Long id;
+    @NotBlank
     private String title;
+    @NotNull
     private Date createdAt;
 
     public TaskSpaceDTO() {
