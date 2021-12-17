@@ -15,4 +15,12 @@
     <mat-grid-list cols="1" rowHeight="100px" gutterSize="5px" >
         <mat-card-title>{{translations[chosenTranslation].welcome_to_task_manager}},{{user.username}} </mat-card-title>
     </mat-grid-list>
+    <mat-grid-list cols="1" rowHeight="50px" gutterSize="5px" >
+        <mat-card-title> {{translations[chosenTranslation].your_task_spaces}}   </mat-card-title>
+     </mat-grid-list>
+     <mat-grid-list cols="3" rowHeight="200px" gutterSize="5px" style="overflow-y:scroll; background:#fff3ee" >
+        <button  *ngFor="let space of (spaces | async)" routerLink='space/{{space.id}}'  mat-raised-button color="primary"> {{space.title}} </button>
+     </mat-grid-list>
+  <button mat-raised-button color="accent" (click)="showAddDialog()"> {{translations[chosenTranslation].add}} </button>
+
 </div>

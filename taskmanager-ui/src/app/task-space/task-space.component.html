@@ -1,0 +1,16 @@
+<mat-card-title>{{translations[chosenTranslation].sign_up}} </mat-card-title>
+<mat-form-field appearance="fill">
+  <mat-label>{{translations[chosenTranslation].username}}</mat-label>
+  <input [(ngModel)]="username" matInput>
+</mat-form-field>
+<mat-form-field appearance="fill">
+  <mat-label>{{translations[chosenTranslation].email}}</mat-label>
+  <input [(ngModel)]="email" matInput  >
+</mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>{{translations[chosenTranslation].password}}</mat-label>
+    <input [(ngModel)]="password" matInput [type]="hide ? 'password' : 'text'" ><mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="signUp()"> {{translations[chosenTranslation].sign_up}} </button>
+

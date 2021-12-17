@@ -10,15 +10,20 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list'; 
+import {MatDialogModule} from '@angular/material/dialog';
+import { PopupComponent } from "./popup/popup.component";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    SidenavComponent
+    SidenavComponent,
+    PopupComponent
   ],
   exports: [
     HeaderComponent,
     SidenavComponent,
+    PopupComponent,
     MatSidenavModule,
     MatIconModule,
     MatButtonModule,
@@ -43,8 +48,10 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MatInputModule,
     MatCardModule,
     MatGridListModule,
+    MatDialogModule,
+    FormsModule,
   ],
   providers: [],
-  bootstrap: [HeaderComponent,SidenavComponent]
+  bootstrap: [HeaderComponent,SidenavComponent, PopupComponent]
 })
 export class SharedModule { }

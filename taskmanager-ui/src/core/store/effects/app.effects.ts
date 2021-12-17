@@ -1,7 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { AppActionTypes, LoginUser, LoginUserSuccess, RegisterUser, RegisterUserSuccess } from '../actions/app.actions';
+import { AddTaskSpace, AppActionTypes, GetUserTaskSpaces, GetUserTaskSpacesSuccess, LoginUser, LoginUserSuccess, RegisterUser, RegisterUserSuccess } from '../actions/app.actions';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { catchError, exhaustMap, map, switchMap } from 'rxjs/operators';
@@ -9,6 +9,8 @@ import { EMPTY } from 'rxjs';
 import { AuthService } from 'src/core/services/auth.service';
 import { UserModel } from 'src/core/models/user';
 import { Router } from '@angular/router';
+import { TaskSpace } from 'src/core/models/task-space';
+import { TaskSpaceService } from 'src/core/services/task-space.service';
 
 @Injectable()
 export class AppEffects {
@@ -46,6 +48,22 @@ export class AppEffects {
         catchError(() => EMPTY),
     ));
 
+    getUserTaskSpaces$ = createEffect(() => this.actions$.pipe(
+        ofType(GetUserTaskSpaces),
+        exhaustMap((action) => this.taskSpaceService.getUserTaskSpaces()
+            .pipe(
+                map((taskSpaces: Array<TaskSpace>) => GetUserTaskSpacesSuccess({ taskSpaces: taskSpaces })),
+                catchError((message) => this.handleError(message))
+            ))));
+
+    addTaskSpace$ = createEffect(() => this.actions$.pipe(
+        ofType(AddTaskSpace),
+        exhaustMap((action) => this.taskSpaceService.addTaskSpace(action.taskSpace)
+            .pipe(
+                switchMap(async () => GetUserTaskSpaces()),
+                catchError((message) => this.handleError(message))
+            ))));
+
     handleError = (message) => {
         this.snackbar.open(message.message, '', {
             duration: 3000,
@@ -56,6 +74,7 @@ export class AppEffects {
     constructor(
         private actions$: Actions,
         private authService: AuthService,
+        private taskSpaceService: TaskSpaceService,
         private snackbar: MatSnackBar,
         private router: Router
     ) { }
