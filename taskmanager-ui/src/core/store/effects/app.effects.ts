@@ -1,7 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { AddTaskSpace, AppActionTypes, GetUserTaskSpaces, GetUserTaskSpacesSuccess, LoginUser, LoginUserSuccess, RegisterUser, RegisterUserSuccess } from '../actions/app.actions';
+import { AddTaskSpace, AppActionTypes, GetUserTaskSpaces, GetUserTaskSpacesSuccess, LoginUser, LoginUserSuccess, RegisterUser, RegisterUserSuccess, RemoveTaskSpace, UpdateTaskSpace } from '../actions/app.actions';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { catchError, exhaustMap, map, switchMap } from 'rxjs/operators';
@@ -59,6 +59,22 @@ export class AppEffects {
     addTaskSpace$ = createEffect(() => this.actions$.pipe(
         ofType(AddTaskSpace),
         exhaustMap((action) => this.taskSpaceService.addTaskSpace(action.taskSpace)
+            .pipe(
+                switchMap(async () => GetUserTaskSpaces()),
+                catchError((message) => this.handleError(message))
+            ))));
+
+    updateTaskSpace$ = createEffect(() => this.actions$.pipe(
+        ofType(UpdateTaskSpace),
+        exhaustMap((action) => this.taskSpaceService.updateTaskSpace(action.taskSpace)
+            .pipe(
+                switchMap(async () => GetUserTaskSpaces()),
+                catchError((message) => this.handleError(message))
+            ))));
+
+    removeTaskSpace$ = createEffect(() => this.actions$.pipe(
+        ofType(RemoveTaskSpace),
+        exhaustMap((action) => this.taskSpaceService.removeTaskSpace(action.id)
             .pipe(
                 switchMap(async () => GetUserTaskSpaces()),
                 catchError((message) => this.handleError(message))

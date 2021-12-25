@@ -1,11 +1,10 @@
-<h1 mat-dialog-title>{{translations[chosenTranslation].add}}</h1>
+<div style="text-align:center">{{translations[chosenTranslation][message]}}</div>
 <div mat-dialog-content>
-  <p>{{translations[chosenTranslation].title}}</p>
-  <mat-form-field>
-  <input [(ngModel)]="result" matInput  >
+  <mat-form-field  *ngFor="let r of result">
+  <input [(ngModel)]="r.data" matInput placeholder= "{{translations[chosenTranslation][r.name]}}">
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">{{translations[chosenTranslation].cancel}}</button>
-  <button mat-button [mat-dialog-close]="result" cdkFocusInitial>{{translations[chosenTranslation].add}}</button>
+  <button mat-button (click)="onNoClick()" [mat-dialog-close]="null" >{{translations[chosenTranslation].cancel}}</button>
+  <button mat-button [mat-dialog-close]="result ?? ['Ok']" cdkFocusInitial>{{translations[chosenTranslation][confirm]}}</button>
 </div>

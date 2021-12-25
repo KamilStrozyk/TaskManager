@@ -30,15 +30,22 @@ export class DashboardComponent {
     this.spaces = this.store.select(getUserTaskSpaces);
   }
 
-
   showAddDialog(): void {
     const dialogRef = this.dialog.open(PopupComponent, {
       width: '250px',
-      data: {chosenLanguage: this.chosenTranslation}
+      data: {
+        chosenLanguage: this.chosenTranslation,
+        confirm: "add",
+        fields: [
+            { name: "title", data: "" }
+        ]
+    }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.store.dispatch(AddTaskSpace({taskSpace:new TaskSpace({title: result, createdAt: new Date})}));
+      if(result){
+      this.store.dispatch(AddTaskSpace({taskSpace:new TaskSpace({title: result[0].data, createdAt: new Date})}));
+      }
     });
   }
 

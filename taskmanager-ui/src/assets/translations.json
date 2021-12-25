@@ -14,7 +14,9 @@
         "remove": "Remove",
         "cancel": "Cancel",
         "title": "Title",
-        "edit": "Edit"
+        "edit": "Edit",
+        "confirmation": "Are you sure?",
+        "ok":"Ok"
     },
     "pl": {
         "welcome_to_task_manager": "Witaj w Task Managerze",
@@ -31,6 +33,8 @@
         "remove": "Usuń",
         "cancel": "Anuluj",
         "title": "Tytuł",
-        "edit": "Edytuj"
+        "edit": "Edytuj",
+        "confirmation": "Jesteś pewien?",
+        "ok":"Ok"
     }
 }

@@ -17,8 +17,20 @@ export class TaskSpaceService {
     );
   }
 
+  public removeTaskSpace(id : any) {
+    return this._httpClient.delete(environment.odata.apiUrl + '/task-space/remove/'+ id).pipe(
+      map((response: any) => { return response; })
+    );
+  }
+
   public addTaskSpace(taskSpace: TaskSpace){
     return this._httpClient.post(environment.odata.apiUrl + '/task-space/create', taskSpace).pipe(
+      map((response: any) => { return response; })
+    );
+  }
+
+  public updateTaskSpace(taskSpace: TaskSpace){
+    return this._httpClient.put(environment.odata.apiUrl + '/task-space/update', taskSpace).pipe(
       map((response: any) => { return response; })
     );
   }

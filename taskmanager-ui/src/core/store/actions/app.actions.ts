@@ -12,6 +12,8 @@ export enum AppActionTypes {
   LogoutUser = '[App] Logout User',
   SetLanguage = '[App] Set Language',
   AddTaskSpace = '[App] Add Task Space',
+  UpdateTaskSpace = '[App] Update Task Space',
+  RemoveTaskSpace = '[App] Remove Task Space',
 }
 
 export const LoginUser = createAction(
@@ -45,6 +47,16 @@ export const GetUserTaskSpaces = createAction(
 export const AddTaskSpace = createAction(
   AppActionTypes.AddTaskSpace,
   props<{ taskSpace: TaskSpace}>()
+);
+
+export const UpdateTaskSpace = createAction(
+  AppActionTypes.UpdateTaskSpace,
+  props<{ taskSpace: TaskSpace}>()
+);
+
+export const RemoveTaskSpace = createAction(
+  AppActionTypes.RemoveTaskSpace,
+  props<{ id: number}>()
 );
 
 export const GetUserTaskSpacesSuccess = createAction(
