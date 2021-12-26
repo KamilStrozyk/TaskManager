@@ -1,9 +1,6 @@
 package com.wsb.taskmanager.businesslogic.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Null;
-import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -17,26 +14,19 @@ public class TaskBE {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = TaskBE.SEQ_NAME)
     private long id;
 
-    @NotBlank
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "task_list_id")
     private TaskListBE taskList;
 
-    @NotBlank
-    @Size(max = 50)
     @Column(name = "title")
     private String title;
 
-    @Null
-    @Size(max = 200)
     @Column(name = "description")
     private String description;
 
-    @NotBlank
     @Column(name = "finished")
     private boolean finished;
 
-    @NotBlank
     @Column(name = "created_at")
     private Date createdAt;
 

@@ -17,17 +17,13 @@ public class TaskListBE {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = TaskListBE.SEQ_NAME)
     private long id;
 
-    @NotBlank
     @ManyToOne
     @JoinColumn(name = "task_space_id")
     private TaskSpaceBE taskSpace;
 
-    @NotBlank
-    @Size(max = 50)
     @Column(name = "title")
     private String title;
 
-    @NotBlank
     @Column(name = "created_at")
     private Date createdAt;
 

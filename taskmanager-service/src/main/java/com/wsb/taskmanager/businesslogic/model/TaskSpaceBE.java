@@ -3,7 +3,6 @@ package com.wsb.taskmanager.businesslogic.model;
 import com.wsb.taskmanager.authentication.model.UserBE;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.HashSet;
@@ -23,12 +22,10 @@ public class TaskSpaceBE {
     @JoinColumn(name = "user_id")
     private UserBE user;
 
-    @NotBlank
     @Size(max = 50)
     @Column(name = "title")
     private String title;
 
-    @NotBlank
     @Column(name = "created_at")
     private Date createdAt;
 
