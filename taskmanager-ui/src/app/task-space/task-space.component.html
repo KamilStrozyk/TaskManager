@@ -1,5 +1,8 @@
 <mat-card-title>
         <div style="padding:5px">{{taskSpace?.title}}</div>
+    <button  routerLink='/' mat-flat-button >
+        <mat-icon>arrow_circle_left<span class="material-icons"></span></mat-icon>
+        </button>
     <button (click)="edit()"mat-flat-button >
         <mat-icon>edit</mat-icon> 
     </button> 
@@ -7,4 +10,12 @@
         <mat-icon>delete</mat-icon> 
     </button> 
 </mat-card-title>
-
+<div style="display:flex; overflow-x:auto">
+    <div style="display:flex; overflow-x:auto; min-width:90%">
+<task-list style="flex: 0 0 200px;" *ngFor="let list of taskLists" [taskList]="list" >
+</task-list>
+</div>
+<button (click)="addList()"mat-flat-button >
+    <mat-icon>add</mat-icon> 
+</button> 
+</div>

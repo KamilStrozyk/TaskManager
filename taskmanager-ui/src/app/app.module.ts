@@ -15,12 +15,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TaskSpaceComponent } from './task-space/task-space.component';
+import { TaskListComponent } from './task-list/task-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    TaskSpaceComponent
+    TaskSpaceComponent,
+    TaskListComponent
   ],
   imports: [
     StoreModule.forRoot({

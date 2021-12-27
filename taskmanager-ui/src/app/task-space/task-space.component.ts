@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { TaskList } from 'src/core/models/task-list';
 import { TaskSpace } from 'src/core/models/task-space';
-import { RegisterUserModel } from 'src/core/models/user';
-import { GetUserTaskSpaces, RegisterUser, RemoveTaskSpace, UpdateTaskSpace } from 'src/core/store/actions/app.actions';
-import { getLanguage, getUserTaskSpaces } from 'src/core/store/selectors/app.selectors';
+import { AddTaskList, GetUserTaskLists, GetUserTaskSpaces, RemoveTaskSpace, UpdateTaskSpace } from 'src/core/store/actions/app.actions';
+import { getLanguage, getUserTaskLists, getUserTaskSpaces } from 'src/core/store/selectors/app.selectors';
 import { IAppState } from 'src/core/store/state/app.state';
 import *  as  translations from "../../assets/translations.json"
 import { PopupComponent, PopupData } from '../shared/popup/popup.component';
@@ -19,6 +19,7 @@ export class TaskSpaceComponent {
     translations: any = translations;
     chosenTranslation: string = "en";
     taskSpace: TaskSpace = new TaskSpace;
+    taskLists: Array<TaskList> = [];
     id: number;
 
     constructor(
@@ -29,13 +30,20 @@ export class TaskSpaceComponent {
 
     ngOnInit() {
         this.route.paramMap.subscribe(params => {
-            console.log(params);
             this.id = parseInt(params.get('id'));
+            this.store.dispatch(GetUserTaskLists({ id: this.id }))
             this.store.select(getUserTaskSpaces)
                 .subscribe(taskSpaces => {
                     if (taskSpaces && this.id)
                         this.taskSpace = taskSpaces.find(x => x.id == this.id);
                 });
+
+            this.store.select(getUserTaskLists)
+                .subscribe(taskLists => {
+                    if (taskLists && this.id)
+                        this.taskLists = taskLists;
+                });
+
         });
     }
 
@@ -52,9 +60,8 @@ export class TaskSpaceComponent {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            if(result){
-                console.log(result)
-            this.store.dispatch(UpdateTaskSpace({ taskSpace: new TaskSpace({ id: this.id, title: result[0].data, createdAt: this.taskSpace.createdAt }) }));
+            if (result) {
+                this.store.dispatch(UpdateTaskSpace({ taskSpace: new TaskSpace({ id: this.id, title: result[0].data, createdAt: this.taskSpace.createdAt }) }));
             }
         });
     }
@@ -70,9 +77,28 @@ export class TaskSpaceComponent {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            if(result){
+            if (result) {
                 this.store.dispatch(RemoveTaskSpace({ id: this.id }));
                 this.router.navigate(['/']);
+            }
+        });
+    }
+
+    addList() {
+        const dialogRef = this.dialog.open(PopupComponent, {
+            width: '250px',
+            data: {
+                chosenLanguage: this.chosenTranslation,
+                confirm: "add",
+                fields: [
+                    new PopupData({ name: "title", data: "" })
+                ]
+            }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.store.dispatch(AddTaskList({ taskList: new TaskList({ id: this.id, spaceId: this.id, title: result[0].data, createdAt: this.taskSpace.createdAt }) }));
             }
         });
     }
