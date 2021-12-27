@@ -75,6 +75,10 @@ public class TaskSpaceBE {
         this.taskList = taskList;
     }
 
+    public void addTaskList(TaskListBE taskList) {
+        getTaskList().add(taskList);
+    }
+
     public static final class Builder {
         private long id;
         private UserBE user;

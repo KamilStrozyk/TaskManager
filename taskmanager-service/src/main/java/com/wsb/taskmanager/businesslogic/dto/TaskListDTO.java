@@ -63,6 +63,7 @@ public class TaskListDTO {
         taskListDTO.setId(taskListBE.getId());
         taskListDTO.setTitle(taskListBE.getTitle());
         taskListDTO.setSpaceId(taskListBE.getTaskSpace().getId());
+        taskListDTO.setCreatedAt(taskListBE.getCreatedAt());
         return taskListDTO;
 
     }
