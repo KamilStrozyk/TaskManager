@@ -19,11 +19,15 @@ import java.util.stream.Collectors;
 @Transactional
 public class TaskListService {
 
-    @Autowired
-    private TaskListRepository taskListRepository;
+    private final TaskListRepository taskListRepository;
+
+    private final TaskSpaceRepository taskSpaceRepository;
 
     @Autowired
-    private TaskSpaceRepository taskSpaceRepository;
+    public TaskListService(TaskListRepository taskListRepository, TaskSpaceRepository taskSpaceRepository) {
+        this.taskListRepository = taskListRepository;
+        this.taskSpaceRepository = taskSpaceRepository;
+    }
 
     public Set<TaskListDTO> getAllTaskLists() {
         return Sets.newHashSet(taskListRepository.findAll())

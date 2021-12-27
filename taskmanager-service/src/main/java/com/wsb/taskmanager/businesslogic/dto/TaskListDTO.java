@@ -19,13 +19,6 @@ public class TaskListDTO {
     public TaskListDTO() {
     }
 
-    public TaskListDTO(Long id, Long spaceId, String title, Date createdAt) {
-        this.id = id;
-        this.spaceId = spaceId;
-        this.title = title;
-        this.createdAt = createdAt;
-    }
-
     public Long getId() {
         return id;
     }
@@ -65,6 +58,5 @@ public class TaskListDTO {
         taskListDTO.setSpaceId(taskListBE.getTaskSpace().getId());
         taskListDTO.setCreatedAt(taskListBE.getCreatedAt());
         return taskListDTO;
-
     }
 }
