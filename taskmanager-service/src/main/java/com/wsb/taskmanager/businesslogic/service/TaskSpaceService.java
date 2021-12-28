@@ -22,11 +22,15 @@ import java.util.stream.Collectors;
 @Transactional
 public class TaskSpaceService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    private final TaskSpaceRepository taskSpaceRepository;
 
     @Autowired
-    private TaskSpaceRepository taskSpaceRepository;
+    public TaskSpaceService(UserRepository userRepository, TaskSpaceRepository taskSpaceRepository) {
+        this.userRepository = userRepository;
+        this.taskSpaceRepository = taskSpaceRepository;
+    }
 
     public Set<TaskSpaceDTO> getAllTaskSpaces() {
         return Sets.newHashSet(taskSpaceRepository.findAll())
@@ -36,7 +40,8 @@ public class TaskSpaceService {
     }
 
     public Set<TaskSpaceDTO> getTaskSpacesOfCurrentUser() throws UserNotFoundException {
-        UserBE currentUser = getCurrentUser().orElseThrow(UserNotFoundException::new);
+        UserBE currentUser = getCurrentUser()
+                .orElseThrow(UserNotFoundException::new);
 
         return currentUser.getTaskSpaces()
                 .stream()
@@ -75,7 +80,7 @@ public class TaskSpaceService {
         taskSpaceRepository.save(taskSpace);
     }
 
-    private Optional<UserBE> getCurrentUser() {
+    public Optional<UserBE> getCurrentUser() {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext()
                 .getAuthentication()
                 .getPrincipal();

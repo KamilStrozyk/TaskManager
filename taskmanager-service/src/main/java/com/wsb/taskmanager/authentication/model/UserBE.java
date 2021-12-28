@@ -122,6 +122,7 @@ public class UserBE {
         private String email;
         private String password;
         private Set<Role> roles = new HashSet<>();
+        private Set<TaskSpaceBE> taskSpaces = new HashSet<>();
 
         private Builder() {
 
@@ -159,6 +160,14 @@ public class UserBE {
             return this;
         }
 
+        public Builder withTaskSpaces(Set<TaskSpaceBE> taskSpaces) {
+            if (taskSpaces != null) {
+                this.taskSpaces.addAll(taskSpaces);
+            }
+
+            return this;
+        }
+
         public UserBE build() {
             UserBE userBE = new UserBE();
             userBE.setId(this.id);
@@ -166,6 +175,7 @@ public class UserBE {
             userBE.setEmail(this.email);
             userBE.setPassword(this.password);
             userBE.setRoles(roles.stream().map(roleName -> new RoleBE(userBE, roleName)).collect(Collectors.toSet()));
+            userBE.setTaskSpaces(this.taskSpaces);
             return userBE;
         }
     }
