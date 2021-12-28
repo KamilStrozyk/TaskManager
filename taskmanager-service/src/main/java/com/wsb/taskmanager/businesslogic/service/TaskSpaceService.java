@@ -32,13 +32,6 @@ public class TaskSpaceService {
         this.taskSpaceRepository = taskSpaceRepository;
     }
 
-    public Set<TaskSpaceDTO> getAllTaskSpaces() {
-        return Sets.newHashSet(taskSpaceRepository.findAll())
-                .stream()
-                .map(TaskSpaceDTO::from)
-                .collect(Collectors.toSet());
-    }
-
     public Set<TaskSpaceDTO> getTaskSpacesOfCurrentUser() throws UserNotFoundException {
         UserBE currentUser = getCurrentUser()
                 .orElseThrow(UserNotFoundException::new);
@@ -80,7 +73,7 @@ public class TaskSpaceService {
         taskSpaceRepository.save(taskSpace);
     }
 
-    public Optional<UserBE> getCurrentUser() {
+    private Optional<UserBE> getCurrentUser() {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext()
                 .getAuthentication()
                 .getPrincipal();

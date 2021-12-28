@@ -9,7 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.lenient;
 
 @ExtendWith(MockitoExtension.class)
 public class AuthenticationTestSetup {
@@ -25,9 +25,9 @@ public class AuthenticationTestSetup {
 
     @BeforeEach
     void setupAuthentication() {
-        when(securityContext.getAuthentication()).thenReturn(authentication);
         SecurityContextHolder.setContext(securityContext);
-        when(authentication.getPrincipal()).thenReturn(userDetails);
-        when(userDetails.getId()).thenReturn(1000L);
+        lenient().when(securityContext.getAuthentication()).thenReturn(authentication);
+        lenient().when(authentication.getPrincipal()).thenReturn(userDetails);
+        lenient().when(userDetails.getId()).thenReturn(1000L);
     }
 }

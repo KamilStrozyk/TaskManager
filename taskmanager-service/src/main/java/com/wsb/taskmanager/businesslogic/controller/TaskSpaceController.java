@@ -34,12 +34,6 @@ public class TaskSpaceController {
         }
     }
 
-    @GetMapping("/all")
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    public Set<TaskSpaceDTO> getAllTaskSpaces() {
-        return taskSpaceService.getAllTaskSpaces();
-    }
-
     @PostMapping("/create")
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> createTaskSpace(@Valid @RequestBody TaskSpaceDTO taskSpace) {
