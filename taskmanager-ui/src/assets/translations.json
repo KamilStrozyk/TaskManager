@@ -16,6 +16,8 @@
         "title": "Title",
         "edit": "Edit",
         "confirmation": "Are you sure?",
+        "description": "Description",
+        "task_list": "Task List",
         "ok":"Ok"
     },
     "pl": {
@@ -35,6 +37,8 @@
         "title": "Tytuł",
         "edit": "Edytuj",
         "confirmation": "Jesteś pewien?",
+        "description": "Opis",
+        "task_list": "Lista zadań",
         "ok":"Ok"
     }
 }

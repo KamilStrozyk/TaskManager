@@ -31,14 +31,38 @@ export class PopupComponent {
 
 export interface IPopupData {
     name : string;
-    data: string;
+    data: any;
+    choice?: boolean;
+    options? : Array<OptionData>;
 }
 
 export class PopupData implements IPopupData {
     name : string;
-    data: string;
+    data: any;
+    choice?: boolean;
+    options? : Array<OptionData>;
 
     constructor(data?: IPopupData) {
+        if (data) {
+            for (let property in data) {
+                if (data.hasOwnProperty(property)) {
+                    (this as any)[property] = (data as any)[property];
+                }
+            }
+        }
+    }
+}
+
+export interface IOptionData {
+    name : string;
+    value: number;
+}
+
+export class OptionData implements IOptionData {
+    name : string;
+    value: number;
+
+    constructor(data?: IOptionData) {
         if (data) {
             for (let property in data) {
                 if (data.hasOwnProperty(property)) {

@@ -75,7 +75,7 @@ public class TaskService {
         task.setDescription(updatedTask.getDescription());
         task.setFinished(updatedTask.isFinished());
         // TODO Decide if task can be moved to another list
-//        task.setTaskList();
+        task.setTaskList(taskListRepository.findById(updatedTask.getTaskListId()).get());
         taskRepository.save(task);
     }
 

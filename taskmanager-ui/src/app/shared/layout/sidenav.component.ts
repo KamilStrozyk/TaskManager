@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { TaskSpace } from 'src/core/models/task-space';
 import { UserModel } from 'src/core/models/user';
 import { LoginUserSuccess, LogoutUser, SetLanguage } from 'src/core/store/actions/app.actions';
-import { getCurrentUser, getLanguage } from 'src/core/store/selectors/app.selectors';
+import { getCurrentUser, getLanguage, getUserTaskSpaces } from 'src/core/store/selectors/app.selectors';
 import { IAppState } from 'src/core/store/state/app.state';
 import *  as  translations from "../../../assets/translations.json"
 
@@ -17,6 +18,7 @@ export class SidenavComponent {
   isDarken: boolean = false;
   chosenTranslation: string = "en";
   currentUser: Observable<UserModel>;
+  spaces: Observable<TaskSpace[]>;
 
   constructor(
     private store: Store<IAppState>) {
@@ -28,6 +30,7 @@ export class SidenavComponent {
         this.store.dispatch(LoginUserSuccess({ user: user }))
       }
     })
+    this.spaces = this.store.select(getUserTaskSpaces);
   }
 
   logout() {

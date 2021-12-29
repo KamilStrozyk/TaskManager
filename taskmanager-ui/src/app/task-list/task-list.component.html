@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card style="margin:5px">
     <mat-card-title>
         <div style="padding:5px">{{taskList?.title}}</div>
     <button (click)="edit()"mat-flat-button >
@@ -7,6 +7,10 @@
     <button (click)="remove()"mat-flat-button >
         <mat-icon>delete</mat-icon> 
     </button> 
+    <button (click)="addTask()"mat-flat-button >
+        <mat-icon>add</mat-icon> 
+    </button> 
     </mat-card-title>
+    <task style="margin:5px;" *ngFor="let task of tasks" [task]="task" [availableTaskLists]="availableTaskLists">
+    </task>
 </mat-card>
-

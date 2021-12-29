@@ -1,0 +1,14 @@
+<mat-card >
+    <mat-card-title style="display:flex">
+        <input type="checkbox"[(ngModel)]="task.finished" (ngModelChange)="check()" />
+        <div style="padding:5px">{{task?.title}} </div> 
+    </mat-card-title>
+    <div style="padding:5px">{{task?.description}}</div>
+    <button (click)="edit()"mat-flat-button >
+        <mat-icon>edit</mat-icon> 
+    </button> 
+    <button (click)="remove()"mat-flat-button >
+        <mat-icon>delete</mat-icon> 
+    </button> 
+</mat-card>
+

@@ -9,12 +9,18 @@
       <mat-icon>logout</mat-icon>  {{translations[chosenTranslation].logout}}
     </button>
     
-    <button  class="menuButton" (click)="changeLanguage()"mat-flat-button >
+    <button class="menuButton" (click)="changeLanguage()"mat-flat-button >
       <mat-icon><span class="material-icons">
         g_translate
         </span></mat-icon>  {{translations[chosenTranslation].change_language}}
     </button>
-  
+<div *ngIf="(currentUser | async) as user">
+
+  <mat-divider style="margin:5px;"></mat-divider>
+  {{translations[chosenTranslation].your_task_spaces}}
+  <mat-divider></mat-divider>
+  <button  class="menuButton"  *ngFor="let space of (spaces | async)" routerLink='space/{{space.id}}'  mat-flat-button> {{space.title}} </button>
+</div>
 </mat-drawer>
 
   <button  (click)="drawer.toggle(); isDarken = !isDarken"mat-flat-button >

@@ -13,6 +13,10 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatDialogModule} from '@angular/material/dialog';
 import { PopupComponent } from "./popup/popup.component";
 import { FormsModule } from "@angular/forms";
+import {MatSelectModule} from '@angular/material/select'; 
+import { MatOptionModule } from "@angular/material/core";
+import { RouterModule } from "@angular/router";
+import { MatDividerModule } from "@angular/material/divider";
 
 @NgModule({
   declarations: [
@@ -36,7 +40,7 @@ import { FormsModule } from "@angular/forms";
     MatInputModule,
     MatCardModule,
     MatGridListModule,
-    
+
   ],
   imports: [
     MatToolbarModule,
@@ -50,6 +54,10 @@ import { FormsModule } from "@angular/forms";
     MatGridListModule,
     MatDialogModule,
     FormsModule,
+    MatSelectModule,
+    MatOptionModule,
+    RouterModule,
+    MatDividerModule
   ],
   providers: [],
   bootstrap: [HeaderComponent,SidenavComponent, PopupComponent]

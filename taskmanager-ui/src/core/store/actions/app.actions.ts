@@ -76,6 +76,11 @@ export const AddTaskList = createAction(
   props<{ taskList: TaskList }>()
 );
 
+export const AddTask = createAction(
+  AppActionTypes.AddTask,
+  props<{ task: Task }>()
+);
+
 export const UpdateTaskSpace = createAction(
   AppActionTypes.UpdateTaskSpace,
   props<{ taskSpace: TaskSpace }>()

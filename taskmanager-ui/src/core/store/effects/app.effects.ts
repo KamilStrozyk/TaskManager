@@ -1,7 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { AddTaskList, AddTaskSpace, AppActionTypes, GetUserTaskLists, GetUserTaskListsSuccess, GetUserTasks, GetUserTaskSpaces, GetUserTaskSpacesSuccess, GetUserTasksSuccess, LoginUser, LoginUserSuccess, RegisterUser, RegisterUserSuccess, RemoveTask, RemoveTaskList, RemoveTaskSpace, UpdateTask, UpdateTaskList, UpdateTaskSpace } from '../actions/app.actions';
+import { AddTask, AddTaskList, AddTaskSpace, AppActionTypes, GetUserTaskLists, GetUserTaskListsSuccess, GetUserTasks, GetUserTaskSpaces, GetUserTaskSpacesSuccess, GetUserTasksSuccess, LoginUser, LoginUserSuccess, RegisterUser, RegisterUserSuccess, RemoveTask, RemoveTaskList, RemoveTaskSpace, UpdateTask, UpdateTaskList, UpdateTaskSpace } from '../actions/app.actions';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { catchError, exhaustMap, map, switchMap } from 'rxjs/operators';
@@ -87,6 +87,14 @@ export class AppEffects {
     addTaskList$ = createEffect(() => this.actions$.pipe(
         ofType(AddTaskList),
         exhaustMap((action) => this.taskListService.addTaskList(action.taskList)
+            .pipe( 
+                switchMap(async () => {window.location.reload(); return GetUserTaskSpaces()}),
+                catchError((message) => this.handleError(message))
+            ))));
+
+    addTask$ = createEffect(() => this.actions$.pipe(
+        ofType(AddTask),
+        exhaustMap((action) => this.taskService.addTask(action.task)
             .pipe( 
                 switchMap(async () => {window.location.reload(); return GetUserTaskSpaces()}),
                 catchError((message) => this.handleError(message))

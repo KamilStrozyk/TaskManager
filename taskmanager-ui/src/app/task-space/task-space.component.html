@@ -10,12 +10,13 @@
         <mat-icon>delete</mat-icon> 
     </button> 
 </mat-card-title>
+<hr>
 <div style="display:flex; overflow-x:auto">
     <div style="display:flex; overflow-x:auto; min-width:90%">
-<task-list style="flex: 0 0 200px;" *ngFor="let list of taskLists" [taskList]="list" >
+<task-list style="flex: 0 0 200px;" *ngFor="let list of taskLists" [taskList]="list"  [availableTaskLists]="taskLists">
 </task-list>
 </div>
-<button (click)="addList()"mat-flat-button >
+<button style="max-height:100px" (click)="addList()"mat-flat-button >
     <mat-icon>add</mat-icon> 
 </button> 
 </div>

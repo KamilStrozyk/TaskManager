@@ -1,7 +1,13 @@
 <div style="text-align:center">{{translations[chosenTranslation][message]}}</div>
 <div mat-dialog-content>
   <mat-form-field  *ngFor="let r of result">
-  <input [(ngModel)]="r.data" matInput placeholder= "{{translations[chosenTranslation][r.name]}}">
+  <input *ngIf="!r.choice"  [(ngModel)]="r.data" matInput placeholder= "{{translations[chosenTranslation][r.name]}}">
+    <mat-select *ngIf="r.choice" [(ngModel)]="r.data" placeholder= "{{translations[chosenTranslation][r.name]}}">
+      <mat-option *ngFor="let opt of r.options" [value]="opt.value">
+        {{opt.name}}
+      </mat-option>
+    </mat-select>
+
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
