@@ -29,13 +29,6 @@ public class TaskListService {
         this.taskSpaceRepository = taskSpaceRepository;
     }
 
-    public Set<TaskListDTO> getAllTaskLists() {
-        return Sets.newHashSet(taskListRepository.findAll())
-                .stream()
-                .map(TaskListDTO::from)
-                .collect(Collectors.toSet());
-    }
-
     public Set<TaskListDTO> getTaskListsBySpaceId(long spaceId) throws TaskSpaceNotFoundException {
         TaskSpaceBE taskSpace = taskSpaceRepository.findById(spaceId)
                 .orElseThrow(TaskSpaceNotFoundException::new);

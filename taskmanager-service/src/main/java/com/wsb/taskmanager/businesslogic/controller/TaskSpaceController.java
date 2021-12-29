@@ -31,18 +31,24 @@ public class TaskSpaceController {
     }
 
     @Operation(
-            summary = "Get all tree nodes"
+            summary = "Get task spaces of current user"
     )
-    @ApiResponse(
-            responseCode = "200",
-            description = "All spaces of currently logged in user",
-            content = @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(
-                            implementation = TaskSpaceDTO.class
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "All spaces of currently logged in user",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(
+                                    implementation = TaskSpaceDTO.class
+                            )
                     )
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "User was not found",
+                    content = @Content
             )
-    )
+    })
     @GetMapping("")
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> getTaskSpacesOfCurrentUser() {
@@ -67,11 +73,18 @@ public class TaskSpaceController {
                     )
             )
     )
-    @ApiResponse(
-            responseCode = "200",
-            description = "Space has been created successfully",
-            content = @Content
-    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Space has been created successfully",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "User was not found",
+                    content = @Content
+            )
+    })
     @PostMapping("/create")
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> createTaskSpace(@Valid @RequestBody TaskSpaceDTO taskSpace) {
