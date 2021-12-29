@@ -5,6 +5,7 @@ import com.wsb.taskmanager.businesslogic.model.TaskBE;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.Objects;
 
 public class TaskDTO {
 
@@ -77,5 +78,18 @@ public class TaskDTO {
         taskDTO.setFinished(taskBE.isFinished());
         taskDTO.setCreatedAt(taskBE.getCreatedAt());
         return taskDTO;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TaskDTO taskDTO = (TaskDTO) o;
+        return finished == taskDTO.finished && Objects.equals(id, taskDTO.id) && Objects.equals(taskListId, taskDTO.taskListId) && Objects.equals(title, taskDTO.title) && Objects.equals(description, taskDTO.description) && Objects.equals(createdAt, taskDTO.createdAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, taskListId, title, description, finished, createdAt);
     }
 }

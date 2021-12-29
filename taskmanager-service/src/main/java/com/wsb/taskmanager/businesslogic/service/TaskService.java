@@ -2,7 +2,6 @@ package com.wsb.taskmanager.businesslogic.service;
 
 import com.google.common.collect.Sets;
 import com.wsb.taskmanager.businesslogic.dto.TaskDTO;
-import com.wsb.taskmanager.businesslogic.dto.TaskListDTO;
 import com.wsb.taskmanager.businesslogic.exception.TaskListNotFoundException;
 import com.wsb.taskmanager.businesslogic.exception.TaskNotFoundException;
 import com.wsb.taskmanager.businesslogic.model.TaskBE;
@@ -59,7 +58,6 @@ public class TaskService {
                 .withFinished(task.isFinished())
                 .build();
 
-        taskList.addTask(taskBE);
         taskBE = taskRepository.save(taskBE);
 
         return taskBE.getId();

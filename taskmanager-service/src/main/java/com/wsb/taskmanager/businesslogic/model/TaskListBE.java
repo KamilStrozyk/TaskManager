@@ -71,10 +71,6 @@ public class TaskListBE {
         this.tasks = tasks;
     }
 
-    public void addTask(TaskBE task) {
-        getTasks().add(task);
-    }
-
     public static final class Builder {
         private long id;
         private TaskSpaceBE taskSpace;
