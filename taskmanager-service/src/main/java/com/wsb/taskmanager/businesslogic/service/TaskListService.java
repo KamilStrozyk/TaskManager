@@ -74,7 +74,6 @@ public class TaskListService {
                 .withCreatedAt(taskList.getCreatedAt())
                 .build();
 
-        taskSpace.addTaskList(taskListBE);
         taskListBE = taskListRepository.save(taskListBE);
 
         return taskListBE.getId();
