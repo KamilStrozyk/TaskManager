@@ -4,13 +4,19 @@ import com.wsb.taskmanager.businesslogic.dto.TaskSpaceDTO;
 import com.wsb.taskmanager.businesslogic.exception.TaskSpaceNotFoundException;
 import com.wsb.taskmanager.businesslogic.exception.UserNotFoundException;
 import com.wsb.taskmanager.businesslogic.service.TaskSpaceService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Set;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -24,6 +30,19 @@ public class TaskSpaceController {
         this.taskSpaceService = taskSpaceService;
     }
 
+    @Operation(
+            summary = "Get all tree nodes"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "All spaces of currently logged in user",
+            content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(
+                            implementation = TaskSpaceDTO.class
+                    )
+            )
+    )
     @GetMapping("")
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> getTaskSpacesOfCurrentUser() {
@@ -34,6 +53,25 @@ public class TaskSpaceController {
         }
     }
 
+
+    @Operation(
+            summary = "Create new task space"
+    )
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            required = true,
+            description = "Task space object created in web application",
+            content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(
+                            implementation = TaskSpaceDTO.class
+                    )
+            )
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Space has been created successfully",
+            content = @Content
+    )
     @PostMapping("/create")
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> createTaskSpace(@Valid @RequestBody TaskSpaceDTO taskSpace) {
@@ -45,6 +83,29 @@ public class TaskSpaceController {
         }
     }
 
+    @Operation(
+            summary = "Delete task space"
+    )
+    @Parameter(
+            required = true,
+            name = "id",
+            description = "Id of space to be removed",
+            in = ParameterIn.PATH,
+            example = "1"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Task space has been successfully deleted",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Space with given id does not exist",
+                    content = @Content
+
+            )
+    })
     @DeleteMapping("/remove/{id}")
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> removeTaskSpace(@PathVariable long id) {
@@ -56,6 +117,30 @@ public class TaskSpaceController {
         }
     }
 
+    @Operation(
+            summary = "Update task space"
+    )
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            required = true,
+            description = "Task space object created in web application",
+            content = @Content(
+                    schema = @Schema(
+                            implementation = TaskSpaceDTO.class
+                    )
+            )
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Task space have been successfully updated",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Task space with given id does not exist",
+                    content = @Content
+            )
+    })
     @PutMapping("/update")
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> updateTaskSpace(@Valid @RequestBody TaskSpaceDTO taskSpaceDTO) {
