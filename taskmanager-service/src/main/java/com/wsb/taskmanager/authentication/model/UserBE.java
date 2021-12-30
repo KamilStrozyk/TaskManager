@@ -22,19 +22,13 @@ public class UserBE {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = UserBE.SEQ_NAME)
     private long id;
 
-    @NotBlank
     @Column(unique = true)
-    @Size(max = 20)
     private String username;
 
-    @NotBlank
     @Column(unique = true)
-    @Size(max = 50)
-    @Email
     private String email;
 
-    @NotBlank
-    @Size(max = 120)
+    @Column
     private String password;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -121,8 +115,8 @@ public class UserBE {
         private String username;
         private String email;
         private String password;
-        private Set<Role> roles = new HashSet<>();
-        private Set<TaskSpaceBE> taskSpaces = new HashSet<>();
+        private final Set<Role> roles = new HashSet<>();
+        private final Set<TaskSpaceBE> taskSpaces = new HashSet<>();
 
         private Builder() {
 
