@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Comparator;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -35,8 +37,9 @@ public class TaskListService {
 
         return Sets.newHashSet(taskSpace.getTaskList())
                 .stream()
+                .sorted(Comparator.comparing(TaskListBE::getCreatedAt))
                 .map(TaskListDTO::from)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
     public void removeTaskList(long id) throws TaskListNotFoundException {

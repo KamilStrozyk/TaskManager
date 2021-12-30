@@ -1,6 +1,5 @@
 package com.wsb.taskmanager.businesslogic.service;
 
-import com.google.common.collect.Sets;
 import com.wsb.taskmanager.authentication.model.UserBE;
 import com.wsb.taskmanager.authentication.repository.UserRepository;
 import com.wsb.taskmanager.authentication.security.service.UserDetailsImpl;
@@ -14,6 +13,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Comparator;
+import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -38,8 +39,9 @@ public class TaskSpaceService {
 
         return currentUser.getTaskSpaces()
                 .stream()
+                .sorted(Comparator.comparing(TaskSpaceBE::getCreatedAt))
                 .map(TaskSpaceDTO::from)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
     public long createTaskSpace(TaskSpaceDTO taskSpace) throws UserNotFoundException {

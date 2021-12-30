@@ -23,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -85,8 +86,7 @@ public class AuthController {
                 signupRequest.getEmail(),
                 passwordEncoder.encode(signupRequest.getPassword()));
 
-        Set<RoleBE> roles = new HashSet<>();
-        roles.add(new RoleBE(user, Role.ROLE_USER));
+        Set<RoleBE> roles = Collections.singleton(new RoleBE(user, Role.ROLE_USER));
 
         user.setRoles(roles);
         userRepository.save(user);
