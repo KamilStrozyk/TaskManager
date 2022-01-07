@@ -41,7 +41,7 @@ export class TaskSpaceComponent {
             this.store.select(getUserTaskLists)
                 .subscribe(taskLists => {
                     if (taskLists && this.id)
-                        this.taskLists = taskLists;
+                      this.taskLists = taskLists;
                 });
 
         });
@@ -101,5 +101,9 @@ export class TaskSpaceComponent {
                 this.store.dispatch(AddTaskList({ taskList: new TaskList({ id: this.id, spaceId: this.id, title: result[0].data, createdAt: this.taskSpace.createdAt }) }));
             }
         });
+    }
+
+    sort(taskList : TaskList[]){
+        return taskList.slice().sort((a,b) => a.id - b.id)
     }
 }
