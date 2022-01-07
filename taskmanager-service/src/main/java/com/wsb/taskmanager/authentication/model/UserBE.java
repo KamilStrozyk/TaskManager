@@ -1,5 +1,7 @@
 package com.wsb.taskmanager.authentication.model;
 
+import com.wsb.taskmanager.businesslogic.model.TaskSpaceBE;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -20,23 +22,20 @@ public class UserBE {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = UserBE.SEQ_NAME)
     private long id;
 
-    @NotBlank
     @Column(unique = true)
-    @Size(max = 20)
     private String username;
 
-    @NotBlank
     @Column(unique = true)
-    @Size(max = 50)
-    @Email
     private String email;
 
-    @NotBlank
-    @Size(max = 120)
+    @Column
     private String password;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<RoleBE> roles;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<TaskSpaceBE> taskSpaces;
 
     public UserBE() {
     }
@@ -87,6 +86,17 @@ public class UserBE {
         this.roles = roles;
     }
 
+    public Set<TaskSpaceBE> getTaskSpaces() {
+        if (taskSpaces == null) {
+            taskSpaces = new HashSet<>();
+        }
+        return taskSpaces;
+    }
+
+    public void setTaskSpaces(Set<TaskSpaceBE> taskSpaces) {
+        this.taskSpaces = taskSpaces;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -105,7 +115,8 @@ public class UserBE {
         private String username;
         private String email;
         private String password;
-        private Set<Role> roles = new HashSet<>();
+        private final Set<Role> roles = new HashSet<>();
+        private final Set<TaskSpaceBE> taskSpaces = new HashSet<>();
 
         private Builder() {
 
@@ -138,8 +149,16 @@ public class UserBE {
         public Builder withRoles(Set<Role> roles) {
             if (roles != null) {
                 this.roles.addAll(roles);
-
             }
+
+            return this;
+        }
+
+        public Builder withTaskSpaces(Set<TaskSpaceBE> taskSpaces) {
+            if (taskSpaces != null) {
+                this.taskSpaces.addAll(taskSpaces);
+            }
+
             return this;
         }
 
@@ -150,6 +169,7 @@ public class UserBE {
             userBE.setEmail(this.email);
             userBE.setPassword(this.password);
             userBE.setRoles(roles.stream().map(roleName -> new RoleBE(userBE, roleName)).collect(Collectors.toSet()));
+            userBE.setTaskSpaces(this.taskSpaces);
             return userBE;
         }
     }

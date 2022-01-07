@@ -1,9 +1,18 @@
 package com.wsb.taskmanager.authentication.dto;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public class SignupRequest {
 
+    @NotBlank(message = "Username cannot be blank")
     private String username;
+
+    @Email(message = "Email should be properly formatted")
     private String email;
+
+    @Size(min = 6, message = "Password should have at least 6 chars")
     private String password;
 
     public SignupRequest(String username, String email, String password) {

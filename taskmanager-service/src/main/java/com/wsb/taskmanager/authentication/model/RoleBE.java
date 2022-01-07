@@ -15,12 +15,10 @@ public class RoleBE {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = RoleBE.SEQ_NAME)
     private long id;
 
-    @NotBlank
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserBE user;
 
-    @NotBlank
     @Column(name = "role_name")
     @Enumerated(EnumType.STRING)
     private Role role;
