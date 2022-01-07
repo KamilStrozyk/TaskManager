@@ -10,15 +10,24 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list'; 
+import {MatDialogModule} from '@angular/material/dialog';
+import { PopupComponent } from "./popup/popup.component";
+import { FormsModule } from "@angular/forms";
+import {MatSelectModule} from '@angular/material/select'; 
+import { MatOptionModule } from "@angular/material/core";
+import { RouterModule } from "@angular/router";
+import { MatDividerModule } from "@angular/material/divider";
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    SidenavComponent
+    SidenavComponent,
+    PopupComponent
   ],
   exports: [
     HeaderComponent,
     SidenavComponent,
+    PopupComponent,
     MatSidenavModule,
     MatIconModule,
     MatButtonModule,
@@ -31,7 +40,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MatInputModule,
     MatCardModule,
     MatGridListModule,
-    
+
   ],
   imports: [
     MatToolbarModule,
@@ -43,8 +52,14 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MatInputModule,
     MatCardModule,
     MatGridListModule,
+    MatDialogModule,
+    FormsModule,
+    MatSelectModule,
+    MatOptionModule,
+    RouterModule,
+    MatDividerModule
   ],
   providers: [],
-  bootstrap: [HeaderComponent,SidenavComponent]
+  bootstrap: [HeaderComponent,SidenavComponent, PopupComponent]
 })
 export class SharedModule { }

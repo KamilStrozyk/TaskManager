@@ -8,7 +8,17 @@
         "username": "User name",
         "password": "Password",
         "email": "Email adress",
-        "change_language": "Change language"
+        "change_language": "Change language",
+        "your_task_spaces": "Your task spaces",
+        "add": "Add new",
+        "remove": "Remove",
+        "cancel": "Cancel",
+        "title": "Title",
+        "edit": "Edit",
+        "confirmation": "Are you sure?",
+        "description": "Description",
+        "task_list": "Task List",
+        "ok":"Ok"
     },
     "pl": {
         "welcome_to_task_manager": "Witaj w Task Managerze",
@@ -19,6 +29,16 @@
         "username": "Nazwa użytkownika",
         "password": "Hasło",
         "email": "Adres email",
-        "change_language": "Zmień język"
+        "change_language": "Zmień język",
+        "your_task_spaces": "Twoje przestrzenie zadań",
+        "add": "Dodaj",
+        "remove": "Usuń",
+        "cancel": "Anuluj",
+        "title": "Tytuł",
+        "edit": "Edytuj",
+        "confirmation": "Jesteś pewien?",
+        "description": "Opis",
+        "task_list": "Lista zadań",
+        "ok":"Ok"
     }
 }

@@ -14,11 +14,20 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { TaskSpaceComponent } from './task-space/task-space.component';
+import { TaskListComponent } from './task-list/task-list.component';
+import { TaskComponent } from './task/task.component';
+import {MatSelectModule} from '@angular/material/select'; 
+import { MatOptionModule } from '@angular/material/core';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent
+    DashboardComponent,
+    TaskSpaceComponent,
+    TaskListComponent,
+    TaskComponent
   ],
   imports: [
     StoreModule.forRoot({
@@ -32,7 +41,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     AuthModule,
     BrowserAnimationsModule,
     FormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatDividerModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

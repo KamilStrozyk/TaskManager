@@ -1,0 +1,16 @@
+<div style="text-align:center">{{translations[chosenTranslation][message]}}</div>
+<div mat-dialog-content>
+  <mat-form-field  *ngFor="let r of result">
+  <input *ngIf="!r.choice"  [(ngModel)]="r.data" matInput placeholder= "{{translations[chosenTranslation][r.name]}}">
+    <mat-select *ngIf="r.choice" [(ngModel)]="r.data" placeholder= "{{translations[chosenTranslation][r.name]}}">
+      <mat-option *ngFor="let opt of r.options" [value]="opt.value">
+        {{opt.name}}
+      </mat-option>
+    </mat-select>
+
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()" [mat-dialog-close]="null" >{{translations[chosenTranslation].cancel}}</button>
+  <button mat-button [mat-dialog-close]="result ?? ['Ok']" cdkFocusInitial>{{translations[chosenTranslation][confirm]}}</button>
+</div>
